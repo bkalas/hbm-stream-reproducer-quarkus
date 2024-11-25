@@ -18,16 +18,17 @@ import jakarta.inject.Inject;
 import jakarta.persistence.EntityGraph;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 
 @ApplicationScoped
 @ Transactional(Transactional.TxType.SUPPORTS)
-
+@Slf4j
 public class ServiceDAO {
 
     @Inject
     EntityManager entityManager;
 
-    
+    @Transactional(Transactional.TxType.REQUIRES_NEW)
     public Map<Long, Service> findAllWithSubServicesAsMap(int offset, int limit, EntityGraph<?> entityGraph) {
         List<Object> serviceIds = new ArrayList<>();
       
@@ -45,7 +46,7 @@ public class ServiceDAO {
     
     public Stream<Service> findAllWithSubServicesAsStream(List<Object> serviceIds, EntityGraph<?> entityGraph) {
 
-       
+        log.info("serviceIds: {}", serviceIds.size());
         CriteriaQuery<Service> cQuery = entityManager.getCriteriaBuilder().createQuery(Service.class);
         cQuery = cQuery.where(cQuery.from(Service.class).get("businessId").in(serviceIds));
         

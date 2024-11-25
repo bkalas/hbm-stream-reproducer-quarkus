@@ -37,6 +37,28 @@ public class Service extends AbstractTraceableEntity<Long> {
     @JoinColumn(name = "service_id")
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<SubService> subServices;
+
+    @JoinColumn(name = "service_id")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<AnotherSubService> anotherSubServices;
+
+    /**
+     * The set of supporting services
+     */
+    @JoinTable(name = "SERVICE_SUPPORTING_RELS", joinColumns = {
+            @JoinColumn(name = "SERVICE_BID", referencedColumnName = "business_id", nullable = false) }, inverseJoinColumns = {
+            @JoinColumn(name = "SUP_SERVICE_BID", referencedColumnName = "business_id", nullable = false) })
+    @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE })
+    private Set<Service> supportingServices;
+
+    /**
+     * The set of supported services
+     */
+    @JoinTable(name = "SERVICE_SUPPORTING_RELS", joinColumns = {
+            @JoinColumn(name = "SUP_SERVICE_BID", referencedColumnName = "business_id", nullable = false) }, inverseJoinColumns = {
+            @JoinColumn(name = "SERVICE_BID", referencedColumnName = "business_id", nullable = false) })
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    private Set<Service> supportedServices;
     
     // Constructors
     public Service() {}

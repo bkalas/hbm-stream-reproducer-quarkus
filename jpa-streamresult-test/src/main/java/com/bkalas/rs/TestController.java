@@ -1,42 +1,41 @@
-package com.bkalas.dao;
+package com.bkalas.rs;
+
+import com.bkalas.dao.ServiceDAO;
+import com.bkalas.entity.Service;
+import com.bkalas.entity.SubService;
+import io.quarkus.narayana.jta.runtime.TransactionConfiguration;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import jakarta.persistence.EntityManager;
+import jakarta.transaction.Transactional;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Path;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
-import java.util.concurrent.atomic.AtomicInteger;
 
-import org.junit.jupiter.api.Test;
-
-import com.bkalas.entity.Service;
-import com.bkalas.entity.SubService;
-
-import io.quarkus.test.junit.QuarkusTest;
-import jakarta.inject.Inject;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityGraph;
-import jakarta.transaction.Transactional;
-
-@QuarkusTest
-class ServiceDAOTest {
-
+@ApplicationScoped
+@Path("/test")
+@Slf4j
+public class TestController {
     @Inject
     EntityManager entityManager;
 
     @Inject
     ServiceDAO serviceDAO;
 
-    List<Object> serviceIds = new ArrayList<>();
+    @Transactional(Transactional.TxType.REQUIRED)
+    @TransactionConfiguration(timeout = 1000*60*5)
+    @GET
+    public void generateData() {
 
-    List<Object> diiffServiceIds = new ArrayList<>();
 
-    //@BeforeEach
-    //@Transactional(Transactional.TxType.REQUIRES_NEW)
-    void setUp() throws FileNotFoundException {
-
+        List<Long> serviceIds = new ArrayList<>();
         StringBuilder sql = new StringBuilder();
         Service service1 = new Service("Main Service 1", "Primary service offering", 2);
         Service service2 = new Service("Main Service 2", "Secondary service offering", 6);
@@ -47,7 +46,7 @@ class ServiceDAOTest {
         Service service7 = new Service("Main Service 7", "7TH service offering", 6);
 
         List<Service> additionalServices = new ArrayList<>();
-        for (int i = 0; i < 4000; i++) {
+        for (int i = 0; i < 500; i++) {
             int childCount = Math.abs(new Random().nextInt(6));
             additionalServices.add(new Service("Main Service " + (i + 8), "Additional service offering", childCount));
             for (int j = 0; j < childCount; j++) {
@@ -55,14 +54,14 @@ class ServiceDAOTest {
                 additionalServices.get(i).addSubService(sub);
             }
             entityManager.persist(additionalServices.get(i));
-            serviceIds.add(additionalServices.get(i).getBusinessId());
-            sql.append("INSERT INTO service (business_id, name, description, expected_sub_service_count,optlock	) VALUES (")
-                    .append(additionalServices.get(i).getBusinessId()).append(", '")
-                    .append(additionalServices.get(i).getName()).append("', '")
-                    .append(additionalServices.get(i).getDescription()).append("', ")
-                    .append(additionalServices.get(i).getExpectedSubServiceCount()).append(", 0);");
-            sql.append("\n");
-            if (additionalServices.get(i).getSubServices() != null) {
+//            serviceIds.add(additionalServices.get(i).getBusinessId());
+//            sql.append("INSERT INTO service (business_id, name, description, expected_sub_service_count,optlock	) VALUES (")
+//                    .append(additionalServices.get(i).getBusinessId()).append(", '")
+//                    .append(additionalServices.get(i).getName()).append("', '")
+//                    .append(additionalServices.get(i).getDescription()).append("', ")
+//                    .append(additionalServices.get(i).getExpectedSubServiceCount()).append(", 0);");
+//            sql.append("\n");
+           /* if (additionalServices.get(i).getSubServices() != null) {
                 for (SubService sub : additionalServices.get(i).getSubServices()) {
                     sql.append("INSERT INTO sub_service (guid, name, description, service_id,optlock) VALUES (")
                             .append("'").append(sub.getId()).append("', '")
@@ -72,14 +71,11 @@ class ServiceDAOTest {
 
                     sql.append("\n");
                 }
-            }
+            }*/
 
         }
-        System.out.println(sql);
-        File file = new File("sql.sql");
-        try (PrintWriter out = new PrintWriter(file)) {
-            out.println(sql);
-        }
+        log.info("Persisted batch of services");
+
 
         SubService sub1 = new SubService("Sub 1", "First sub-service");
         SubService sub2 = new SubService("Sub 2", "Second sub-service");
@@ -128,44 +124,9 @@ class ServiceDAOTest {
         // Now test the DAO
         // entityManager.getTransaction().begin();
 
-        diiffServiceIds = new ArrayList<>();
+      /*  diiffServiceIds = new ArrayList<>();
 
         diiffServiceIds.addAll(serviceIds.subList(300, 400));
-
-    }
-
-    @Test
-    @Transactional(Transactional.TxType.SUPPORTS)
-    void testServiceWithSubServices() {
-        // First, create and persist some test data
-        System.out.println("---starteTest");
-        EntityGraph<?> graph = entityManager.getEntityGraph("Service.withSubServices");
-
-        boolean isNext = true;
-        int last = 0;
-        AtomicInteger noOfDiff = new AtomicInteger();
-
-        while (isNext) {
-            diiffServiceIds = new ArrayList<>();
-
-            Map<Long, Service> serviceMap = serviceDAO.findAllWithSubServicesAsMap(last, last + 6000, graph);
-            last += 6000;
-            System.out.println("----serviceMap I=" + last + ", size=" + serviceMap.size());
-            System.out.println("----serviceMap " + serviceMap.size());
-            if (serviceMap.size() == 0) {
-                isNext = false;
-            }
-
-            serviceMap.forEach((key, value) -> {
-                if (value.getExpectedSubServiceCount() != value.getSubServices().size()) {
-                    System.out.println("id " + value.getBusinessId() + " expected sub services count " + value.getExpectedSubServiceCount() + " but got sub services count " + value.getSubServices().size());
-                    for (SubService sub : value.getSubServices()) {
-                        System.out.println("        subservice.guid" + sub.getId() + ",subservice.name" + sub.getName() + ",subservice.description" + sub.getDescription());
-                    }
-                    noOfDiff.getAndIncrement();
-                }
-            });
-        }
-        System.out.println("noOfDiff=" + noOfDiff);
+*/
     }
 }

@@ -3,6 +3,10 @@ INSERT INTO sub_service (guid, name, description, service_id,optlock) VALUES ('4
 INSERT INTO sub_service (guid, name, description, service_id,optlock) VALUES ('6781d505-701e-4816-b559-955970e59fbe', 'Sub 2', 'Sub 2 description', 1, 0);
 INSERT INTO sub_service (guid, name, description, service_id,optlock) VALUES ('61f72c17-5aef-44c5-ae8c-8b18c7513e46', 'Sub 0', 'Sub 0 description', 1, 0);
 INSERT INTO sub_service (guid, name, description, service_id,optlock) VALUES ('1a697633-2e2d-412d-a408-792fe72b524e', 'Sub 3', 'Sub 3 description', 1, 0);
+INSERT INTO another_sub_service (guid, name, description, service_id,optlock) VALUES ('45dd2486-e648-449d-80da-0f3c26a85730', 'Sub 1', 'Sub 1 description', 1, 0);
+INSERT INTO another_sub_service (guid, name, description, service_id,optlock) VALUES ('6781d505-701e-4816-b559-955970e59fbe', 'Sub 2', 'Sub 2 description', 1, 0);
+INSERT INTO another_sub_service (guid, name, description, service_id,optlock) VALUES ('61f72c17-5aef-44c5-ae8c-8b18c7513e46', 'Sub 0', 'Sub 0 description', 1, 0);
+INSERT INTO another_sub_service (guid, name, description, service_id,optlock) VALUES ('1a697633-2e2d-412d-a408-792fe72b524e', 'Sub 3', 'Sub 3 description', 1, 0);
 INSERT INTO service (business_id, name, description, expected_sub_service_count,optlock	) VALUES (2, 'Main Service 9', 'Additional service offering', 3, 0);
 INSERT INTO sub_service (guid, name, description, service_id,optlock) VALUES ('6269170a-9a45-4f50-913f-ffce2dfab7e4', 'Sub 2', 'Sub 2 description', 2, 0);
 INSERT INTO sub_service (guid, name, description, service_id,optlock) VALUES ('2038fb5b-f9e9-4f8b-9837-e9e917def3e8', 'Sub 0', 'Sub 0 description', 2, 0);
@@ -15,6 +19,7 @@ INSERT INTO service (business_id, name, description, expected_sub_service_count,
 INSERT INTO sub_service (guid, name, description, service_id,optlock) VALUES ('6feb7bee-1f0a-43c5-9851-5500c301b8c6', 'Sub 0', 'Sub 0 description', 4, 0);
 INSERT INTO sub_service (guid, name, description, service_id,optlock) VALUES ('b39317c0-1e23-434e-bf80-90484d2612db', 'Sub 1', 'Sub 1 description', 4, 0);
 INSERT INTO sub_service (guid, name, description, service_id,optlock) VALUES ('d6d51b86-41d7-49c6-8289-10fe61a49f3d', 'Sub 2', 'Sub 2 description', 4, 0);
+INSERT INTO another_sub_service (guid, name, description, service_id,optlock) VALUES ('d6d51b86-41d7-49c6-8289-10fe61a49f3d', 'Sub 2', 'Sub 2 description', 4, 0);
 INSERT INTO service (business_id, name, description, expected_sub_service_count,optlock	) VALUES (5, 'Main Service 12', 'Additional service offering', 3, 0);
 INSERT INTO sub_service (guid, name, description, service_id,optlock) VALUES ('fc03d495-60b4-4999-a934-dc3d8c368471', 'Sub 1', 'Sub 1 description', 5, 0);
 INSERT INTO sub_service (guid, name, description, service_id,optlock) VALUES ('598d2e12-b62a-456f-9706-372349bf916b', 'Sub 0', 'Sub 0 description', 5, 0);
@@ -13858,6 +13863,9 @@ INSERT INTO sub_service (guid, name, description, service_id,optlock) VALUES ('6
 INSERT INTO sub_service (guid, name, description, service_id,optlock) VALUES ('b8660305-b14b-40d3-8870-3f8630222740', 'Sub 1', 'Sub 1 description', 3997, 0);
 INSERT INTO sub_service (guid, name, description, service_id,optlock) VALUES ('72fdda0d-2b01-46fc-b961-3cdf78459a36', 'Sub 4', 'Sub 4 description', 3997, 0);
 INSERT INTO sub_service (guid, name, description, service_id,optlock) VALUES ('8aea77aa-36a9-4a03-80de-e73dc43c2d4f', 'Sub 0', 'Sub 0 description', 3997, 0);
+INSERT INTO another_sub_service (guid, name, description, service_id,optlock) VALUES ('72fdda0d-2b01-46fc-b961-3cdf78459a36', 'Sub 4', 'Sub 4 description', 3997, 3);
+INSERT INTO another_sub_service (guid, name, description, service_id,optlock) VALUES ('8aea77aa-36a9-4a03-80de-e73dc43c2d4f', 'Sub 0', 'Sub 0 description', 3997, 0);
+
 INSERT INTO service (business_id, name, description, expected_sub_service_count,optlock	) VALUES (3998, 'Main Service 4005', 'Additional service offering', 1, 0);
 INSERT INTO sub_service (guid, name, description, service_id,optlock) VALUES ('dbe82b4e-c1e1-4c3f-9f5b-6ff5a058ca7b', 'Sub 0', 'Sub 0 description', 3998, 0);
 INSERT INTO service (business_id, name, description, expected_sub_service_count,optlock	) VALUES (3999, 'Main Service 4006', 'Additional service offering', 1, 0);
@@ -13866,4 +13874,18 @@ INSERT INTO service (business_id, name, description, expected_sub_service_count,
 INSERT INTO sub_service (guid, name, description, service_id,optlock) VALUES ('e9dfdafe-ba17-49f5-8f73-90b4e3e101c9', 'Sub 0', 'Sub 0 description', 4000, 0);
 INSERT INTO sub_service (guid, name, description, service_id,optlock) VALUES ('c5d3425c-3fe2-478a-9c53-9ca87ffe4539', 'Sub 1', 'Sub 1 description', 4000, 0);
 INSERT INTO sub_service (guid, name, description, service_id,optlock) VALUES ('c1f87f2e-4e16-4657-b7d4-acfb262db249', 'Sub 2', 'Sub 2 description', 4000, 0);
+INSERT INTO another_sub_service (guid, name, description, service_id,optlock) VALUES ('e9dfdafe-ba17-49f5-8f73-90b4e3e101c9', 'Sub 0', 'Sub 0 description', 4000, 0);
+INSERT INTO another_sub_service (guid, name, description, service_id,optlock) VALUES ('c5d3425c-3fe2-478a-9c53-9ca87ffe4539', 'Sub 1', 'Sub 1 description', 4000, 0);
+INSERT INTO another_sub_service (guid, name, description, service_id,optlock) VALUES ('c1f87f2e-4e16-4657-b7d4-acfb262db249', 'Sub 2', 'Sub 2 description', 4000, 0);
 
+INSERT INTO SERVICE_SUPPORTING_RELS(SERVICE_BID,SUP_SERVICE_BID) VALUES(1,2);
+INSERT INTO SERVICE_SUPPORTING_RELS(SERVICE_BID,SUP_SERVICE_BID) VALUES(1,3);
+INSERT INTO SERVICE_SUPPORTING_RELS(SERVICE_BID,SUP_SERVICE_BID) VALUES(1,4);
+INSERT INTO SERVICE_SUPPORTING_RELS(SERVICE_BID,SUP_SERVICE_BID) VALUES(2,5);
+INSERT INTO SERVICE_SUPPORTING_RELS(SERVICE_BID,SUP_SERVICE_BID) VALUES(100,101);
+INSERT INTO SERVICE_SUPPORTING_RELS(SERVICE_BID,SUP_SERVICE_BID) VALUES(100,102);
+INSERT INTO SERVICE_SUPPORTING_RELS(SERVICE_BID,SUP_SERVICE_BID) VALUES(100,103);
+INSERT INTO SERVICE_SUPPORTING_RELS(SERVICE_BID,SUP_SERVICE_BID) VALUES(100,104);
+INSERT INTO SERVICE_SUPPORTING_RELS(SERVICE_BID,SUP_SERVICE_BID) VALUES(100,105);
+INSERT INTO SERVICE_SUPPORTING_RELS(SERVICE_BID,SUP_SERVICE_BID) VALUES(100,106);
+INSERT INTO SERVICE_SUPPORTING_RELS(SERVICE_BID,SUP_SERVICE_BID) VALUES(3999,4000);

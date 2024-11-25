@@ -13862,7 +13862,7 @@ INSERT INTO service (business_id, name, description, expected_sub_service_count,
 INSERT INTO sub_service (guid, name, description, service_id,optlock) VALUES ('dbe82b4e-c1e1-4c3f-9f5b-6ff5a058ca7b', 'Sub 0', 'Sub 0 description', 3998, 0);
 INSERT INTO service (business_id, name, description, expected_sub_service_count,optlock	) VALUES (3999, 'Main Service 4006', 'Additional service offering', 1, 0);
 INSERT INTO sub_service (guid, name, description, service_id,optlock) VALUES ('d6c56d27-6121-4332-9ae2-9a518bd30799', 'Sub 0', 'Sub 0 description', 3999, 0);
-INSERT INTO service (business_id, name, description, expected_sub_service_count,optlock	) VALUES (4000, 'Main Service 4007', 'Additional service offering', 3, 0);
+INSERT INTO service (business_id, name, description, expected_sub_service_count,optlock	) VALUES (4000, 'Main Service 4007', 'Additional service offering', 2, 0);
 INSERT INTO sub_service (guid, name, description, service_id,optlock) VALUES ('e9dfdafe-ba17-49f5-8f73-90b4e3e101c9', 'Sub 0', 'Sub 0 description', 4000, 0);
 INSERT INTO sub_service (guid, name, description, service_id,optlock) VALUES ('c5d3425c-3fe2-478a-9c53-9ca87ffe4539', 'Sub 1', 'Sub 1 description', 4000, 0);
 INSERT INTO sub_service (guid, name, description, service_id,optlock) VALUES ('c1f87f2e-4e16-4657-b7d4-acfb262db249', 'Sub 2', 'Sub 2 description', 4000, 0);
