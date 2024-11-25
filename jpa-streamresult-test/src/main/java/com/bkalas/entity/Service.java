@@ -3,6 +3,7 @@ package com.bkalas.entity;
 import jakarta.persistence.*;
 
 import java.io.Serial;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -13,7 +14,7 @@ import java.util.UUID;
     name = "Service.withSubServices",
     attributeNodes = @NamedAttributeNode("subServices")
 )
-public class Service extends AbstractTraceableEntity<Long> {
+public class Service  {
     @Serial
     private static final long serialVersionUID = -4484848484848484L;
 
@@ -31,35 +32,10 @@ public class Service extends AbstractTraceableEntity<Long> {
     @Column(name = "expected_sub_service_count")
     private int expectedSubServiceCount;
 
-    @Column(name = "GUID")
-    private String guid = UUID.randomUUID().toString();
-    
     @JoinColumn(name = "service_id")
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<SubService> subServices;
 
-    @JoinColumn(name = "service_id")
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<AnotherSubService> anotherSubServices;
-
-    /**
-     * The set of supporting services
-     */
-    @JoinTable(name = "SERVICE_SUPPORTING_RELS", joinColumns = {
-            @JoinColumn(name = "SERVICE_BID", referencedColumnName = "business_id", nullable = false) }, inverseJoinColumns = {
-            @JoinColumn(name = "SUP_SERVICE_BID", referencedColumnName = "business_id", nullable = false) })
-    @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE })
-    private Set<Service> supportingServices;
-
-    /**
-     * The set of supported services
-     */
-    @JoinTable(name = "SERVICE_SUPPORTING_RELS", joinColumns = {
-            @JoinColumn(name = "SUP_SERVICE_BID", referencedColumnName = "business_id", nullable = false) }, inverseJoinColumns = {
-            @JoinColumn(name = "SERVICE_BID", referencedColumnName = "business_id", nullable = false) })
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-    private Set<Service> supportedServices;
-    
     // Constructors
     public Service() {}
     
@@ -109,15 +85,7 @@ public class Service extends AbstractTraceableEntity<Long> {
         this.expectedSubServiceCount = expectedSubServiceCount;
     }   
 
-    public String getGuid() {
-        return guid;
-    } 
-
-    public void setGuid(String guid) {
-        this.guid = guid;
-    }
-
-    @Override
+  /*  @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -128,6 +96,6 @@ public class Service extends AbstractTraceableEntity<Long> {
     @Override
     public int hashCode() {
         return Objects.hash(guid);
-    }
+    }*/
 } 
 
