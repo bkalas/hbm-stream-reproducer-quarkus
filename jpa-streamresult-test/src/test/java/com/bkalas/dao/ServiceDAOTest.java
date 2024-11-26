@@ -43,16 +43,12 @@ class ServiceDAOTest {
 
             Stream<Service> serviceStream = serviceDAO.findIdRangeWIthSubServiceUsingStream(last, BATCH_SIZE, graph);
             last += BATCH_SIZE;
-            //System.out.println("----serviceStream I=" + last + ", size=" + serviceStream.size());
 
             isNext.set(false);
             serviceStream.forEach((service) -> {
                 isNext.set(true);
                 if (service.getExpectedSubServiceCount() != service.getSubServices().size()) {
                     System.out.println("id " + service.getBusinessId() + " expected sub services count " + service.getExpectedSubServiceCount() + " but got sub services count " + service.getSubServices().size());
-                    for (SubService sub : service.getSubServices()) {
-                        //System.out.println("        subservice.guid" + sub.getId() + ",subservice.name" + sub.getName() + ",subservice.description" + sub.getDescription());
-                    }
                     noOfDiff.getAndIncrement();
                 }
             });
@@ -81,9 +77,6 @@ class ServiceDAOTest {
                 isNext.set(true);
                 if (service.getExpectedSubServiceCount() != service.getSubServices().size()) {
                     System.out.println("id " + service.getBusinessId() + " expected sub services count " + service.getExpectedSubServiceCount() + " but got sub services count " + service.getSubServices().size());
-                    for (SubService sub : service.getSubServices()) {
-                        //System.out.println("        subservice.guid" + sub.getId() + ",subservice.name" + sub.getName() + ",subservice.description" + sub.getDescription());
-                    }
                     noOfDiff.getAndIncrement();
                 }
             });
