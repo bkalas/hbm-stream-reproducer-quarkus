@@ -60,12 +60,6 @@ public class ServiceDAO {
         }
         return typedQuery.getResultStream();
 
-        // return entityManager.createQuery("SELECT s FROM Service s WHERE s.id IN
-        // :serviceIds", Service.class)
-        // .setHint("jakarta.persistence.loadgraph", graph)
-        // .setParameter("serviceIds", serviceIds)
-
-        // .getResultStream();
 
     }
 
@@ -78,13 +72,6 @@ public class ServiceDAO {
             typedQuery.setHint("jakarta.persistence.loadgraph", entityGraph);
         }
         return typedQuery.getResultList();
-
-        // return entityManager.createQuery("SELECT s FROM Service s WHERE s.id IN
-        // :serviceIds", Service.class)
-        // .setHint("jakarta.persistence.loadgraph", graph)
-        // .setParameter("serviceIds", serviceIds)
-
-        // .getResultStream();
 
     }
 }

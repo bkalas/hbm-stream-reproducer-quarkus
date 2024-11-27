@@ -51,10 +51,7 @@
             <artifactId>quarkus-junit5</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-rest-jackson</artifactId>
-        </dependency>
+
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -92,7 +89,7 @@
                             <annotationProcessorPath>
                                 <groupId>org.hibernate.orm</groupId>
                                 <artifactId>hibernate-jpamodelgen</artifactId>
-                                <version>6.5.2.Final</version>
+                                <version>6.6.0</version>
                             </annotationProcessorPath>
                         </annotationProcessorPaths>
                     </configuration>

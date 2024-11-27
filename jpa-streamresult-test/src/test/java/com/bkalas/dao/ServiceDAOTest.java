@@ -32,7 +32,7 @@ class ServiceDAOTest {
 
     @Test
     @Transactional(Transactional.TxType.REQUIRED)
-    void testServiceWithSubServices() {
+    void testServiceWithSubServicesUsingStream() {
         EntityGraph<?> graph = entityManager.getEntityGraph("Service.withSubServices");
 
         AtomicBoolean isNext = new AtomicBoolean(true);
