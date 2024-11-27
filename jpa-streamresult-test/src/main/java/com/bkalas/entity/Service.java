@@ -83,19 +83,6 @@ public class Service  {
 
     public void setExpectedSubServiceCount(int expectedSubServiceCount) {
         this.expectedSubServiceCount = expectedSubServiceCount;
-    }   
-
-  /*  @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Service service = (Service) o;
-        return guid.equals(service.guid);
     }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(guid);
-    }*/
 } 
 
