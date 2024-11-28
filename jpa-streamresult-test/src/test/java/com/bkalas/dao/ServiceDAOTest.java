@@ -15,12 +15,11 @@ import com.bkalas.entity.Service;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityGraph;
-import jakarta.transaction.Transactional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
-public class TestServiceDAOTest {
+public class ServiceDAOTest {
 
 
     ServiceDAO serviceDAO;
