@@ -1,15 +1,14 @@
 package com.bkalas.entity;
 
-import java.io.Serial;
+import java.io.Serializable;
 import java.util.UUID;
 
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "sub_service")
-public class SubService {
+public class SubService implements Serializable {
 
-    @Serial
     private static final long serialVersionUID = -4484848484848484L;
     @Column(name = "name")
     private String name;

@@ -2,7 +2,7 @@ package com.bkalas.entity;
 
 import jakarta.persistence.*;
 
-import java.io.Serial;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Objects;
@@ -14,8 +14,8 @@ import java.util.UUID;
     name = "Service.withSubServices",
     attributeNodes = @NamedAttributeNode("subServices")
 )
-public class Service  {
-    @Serial
+public class Service  implements Serializable {
+
     private static final long serialVersionUID = -4484848484848484L;
 
     @Id

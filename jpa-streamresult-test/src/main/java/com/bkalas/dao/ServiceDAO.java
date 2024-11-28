@@ -11,34 +11,29 @@ import com.bkalas.entity.Service;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
-import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Inject;
 import jakarta.persistence.EntityGraph;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 
-@ApplicationScoped
-@ Transactional(Transactional.TxType.SUPPORTS)
+@Transactional(Transactional.TxType.SUPPORTS)
 @Slf4j
 public class ServiceDAO {
 
-    @Inject
-    EntityManager entityManager;
 
     @Transactional(Transactional.TxType.REQUIRED)
-    public Stream<Service> findIdRangeWIthSubServiceUsingStream(int offset, int limit, EntityGraph<?> entityGraph) {
+    public Stream<Service> findIdRangeWIthSubServiceUsingStream(int offset, int limit, EntityGraph<?> entityGraph, EntityManager entityManager) {
         List<Object> serviceIds = new ArrayList<>();
         List<Service> services = new ArrayList<>();
         for (int i = offset; i < offset+limit; i++) {
             serviceIds.add(i);
         }
 
-        return findAllWithSubServicesAsStream(serviceIds, entityGraph);
+        return findAllWithSubServicesAsStream(serviceIds, entityGraph, entityManager);
     }
 
     @Transactional(Transactional.TxType.REQUIRED)
-    public List<Service> findIdRangeWIthSubServiceUsingList(int offset, int limit, EntityGraph<?> entityGraph) {
+    public List<Service> findIdRangeWIthSubServiceUsingList(int offset, int limit, EntityGraph<?> entityGraph, EntityManager entityManager) {
         List<Object> serviceIds = new ArrayList<>();
         List<Service> services = new ArrayList<>();
         for (int i = offset; i < offset+limit; i++) {
@@ -47,10 +42,10 @@ public class ServiceDAO {
 
 
 
-        return findAllWithSubServicesAsList(serviceIds, entityGraph);
+        return findAllWithSubServicesAsList(serviceIds, entityGraph, entityManager);
     }
     
-    public Stream<Service> findAllWithSubServicesAsStream(List<Object> serviceIds, EntityGraph<?> entityGraph) {
+    public Stream<Service> findAllWithSubServicesAsStream(List<Object> serviceIds, EntityGraph<?> entityGraph, EntityManager entityManager) {
         CriteriaQuery<Service> cQuery = entityManager.getCriteriaBuilder().createQuery(Service.class);
         cQuery = cQuery.where(cQuery.from(Service.class).get("businessId").in(serviceIds));
         
@@ -63,7 +58,7 @@ public class ServiceDAO {
 
     }
 
-    public List<Service> findAllWithSubServicesAsList(List<Object> serviceIds, EntityGraph<?> entityGraph) {
+    public List<Service> findAllWithSubServicesAsList(List<Object> serviceIds, EntityGraph<?> entityGraph, EntityManager entityManager) {
         CriteriaQuery<Service> cQuery = entityManager.getCriteriaBuilder().createQuery(Service.class);
         cQuery = cQuery.where(cQuery.from(Service.class).get("businessId").in(serviceIds));
 

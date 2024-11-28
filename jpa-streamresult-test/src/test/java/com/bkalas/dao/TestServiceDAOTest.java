@@ -5,34 +5,45 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
 
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.bkalas.entity.Service;
-import com.bkalas.entity.SubService;
 
-import io.quarkus.test.junit.QuarkusTest;
-import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityGraph;
 import jakarta.transaction.Transactional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@QuarkusTest
-class ServiceDAOTest {
 
-    @Inject
-    EntityManager entityManager;
+public class TestServiceDAOTest {
 
-    @Inject
+
     ServiceDAO serviceDAO;
 
     static int BATCH_SIZE = 6000;
 
+    private EntityManagerFactory entityManagerFactory;
+
+    @BeforeEach
+    void init() {
+        entityManagerFactory = Persistence.createEntityManagerFactory("templatePU");
+        serviceDAO = new ServiceDAO();
+    }
+
+    @AfterEach
+    void destroy() {
+        entityManagerFactory.close();
+    }
 
     @Test
-    @Transactional(Transactional.TxType.REQUIRED)
-    void testServiceWithSubServicesUsingStream() {
+    public void testServiceWithSubServicesUsingStream() {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
         EntityGraph<?> graph = entityManager.getEntityGraph("Service.withSubServices");
 
         AtomicBoolean isNext = new AtomicBoolean(true);
@@ -41,7 +52,7 @@ class ServiceDAOTest {
 
         while (isNext.get()) {
 
-            Stream<Service> serviceStream = serviceDAO.findIdRangeWIthSubServiceUsingStream(last, BATCH_SIZE, graph);
+            Stream<Service> serviceStream = serviceDAO.findIdRangeWIthSubServiceUsingStream(last, BATCH_SIZE, graph, entityManager);
             last += BATCH_SIZE;
 
             isNext.set(false);
@@ -53,13 +64,16 @@ class ServiceDAOTest {
                 }
             });
         }
+        entityManager.getTransaction().commit();
+        entityManager.close();
         System.out.println("noOfDiff=" + noOfDiff);
         assertEquals(0, noOfDiff.get());
     }
 
     @Test
-    @Transactional(Transactional.TxType.REQUIRED)
     void testServiceWithSubServicesUsingList() {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
         EntityGraph<?> graph = entityManager.getEntityGraph("Service.withSubServices");
 
         AtomicBoolean isNext = new AtomicBoolean(true);
@@ -68,7 +82,7 @@ class ServiceDAOTest {
 
         while (isNext.get()) {
 
-            List<Service> serviceStream = serviceDAO.findIdRangeWIthSubServiceUsingList(last, BATCH_SIZE, graph);
+            List<Service> serviceStream = serviceDAO.findIdRangeWIthSubServiceUsingList(last, BATCH_SIZE, graph, entityManager);
             last += BATCH_SIZE;
             //System.out.println("----serviceStream I=" + last + ", size=" + serviceStream.size());
 
@@ -82,6 +96,8 @@ class ServiceDAOTest {
             });
             assertEquals(0, noOfDiff.get());
         }
+        entityManager.getTransaction().commit();
+        entityManager.close();
         System.out.println("noOfDiff=" + noOfDiff);
     }
 }
